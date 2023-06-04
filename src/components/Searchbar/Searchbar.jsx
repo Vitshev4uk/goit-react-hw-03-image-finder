@@ -4,7 +4,7 @@ import css from './Searchbar.module.css';
 
 class Searchbar extends Component {
   state = {
-    value: ''
+    value: '',
   }
 
   handleInputValue = (event) => {
@@ -21,7 +21,7 @@ class Searchbar extends Component {
   }
 
   render() {
-    const { onSubmit } = this.props;
+    // const { onSubmit } = this.props;
     return (
       <header className={css.Searchbar}>
         <form className="form" onSubmit={this.onSubmitForm}>
