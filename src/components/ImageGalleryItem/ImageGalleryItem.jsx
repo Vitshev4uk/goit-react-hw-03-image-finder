@@ -2,10 +2,15 @@ import { Component } from 'react';
 
 class ImageGalleryItem extends Component {
   render() {
+    const { images } = this.props;
     return (
-      <li class="gallery-item">
-        <img src="" alt="" />
-      </li>
+      <ul className="gallery">
+        {images.map(({ id, webformatURL, largeImageURL }) => (
+          <li className="gallery-item" key={id}>
+            <img src={webformatURL} alt="" />
+          </li>
+        ))}
+      </ul>
     );
   }
 }
