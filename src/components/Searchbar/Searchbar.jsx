@@ -15,9 +15,12 @@ class Searchbar extends Component {
 
   onSubmitForm = async (event) => {
     event.preventDefault();
-    console.log(this.state.value);
+    const { value } = this.state;
+    console.log(value);
+    // const key = '35632992-e10a39a36f128534b3670000b'
 
-    // const data = await axios.get()
+    // const data = await axios.get(`https://pixabay.com/api/?key=${key}&q=${value}`);
+    // console.log(data.total.hits)
   }
 
   render() {
