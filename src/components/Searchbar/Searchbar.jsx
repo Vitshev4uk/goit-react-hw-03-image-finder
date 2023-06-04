@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import css from './Searchbar.module.css'
+import css from './Searchbar.module.css';
+// import axios from 'axios';
 
 class Searchbar extends Component {
   state = {
@@ -7,16 +8,23 @@ class Searchbar extends Component {
   }
 
   handleInputValue = (event) => {
-    const {name, value} = event.target;
-    this.setState({ value: {value} })
+    const { value} = event.target;
+    this.setState({ value: value })
     console.log(value)
+  }
+
+  onSubmitForm = async (event) => {
+    event.preventDefault();
+    console.log(this.state.value);
+
+    // const data = await axios.get()
   }
 
   render() {
     const { onSubmit } = this.props;
     return (
       <header className={css.Searchbar}>
-        <form className="form" onSubmit={onSubmit}>
+        <form className="form" onSubmit={this.onSubmitForm}>
           <button type="submit" className="button">
             <span className="button-label">Search</span>
           </button>
