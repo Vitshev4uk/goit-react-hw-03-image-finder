@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import css from './Searchbar.module.css';
-// import axios from 'axios';
+import axios from 'axios';
 
 class Searchbar extends Component {
   state = {
@@ -17,10 +17,10 @@ class Searchbar extends Component {
     event.preventDefault();
     const { value } = this.state;
     console.log(value);
-    // const key = '35632992-e10a39a36f128534b3670000b'
+    const key = '35632992-e10a39a36f128534b3670000b'
 
-    // const data = await axios.get(`https://pixabay.com/api/?key=${key}&q=${value}`);
-    // console.log(data.total.hits)
+    const data = await axios.get(`https://pixabay.com/api/?key=${key}&q=${value}`);
+    console.log(data)
   }
 
   render() {
