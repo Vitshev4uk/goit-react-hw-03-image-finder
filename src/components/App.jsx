@@ -7,16 +7,14 @@ import Modal from "./Modal/Modal";
 
 class App extends Component {
 
-  handleInputValue = (event) => {
-    event.preventDefault();
+  // handleInputValue = (event) => {
+  //   event.preventDefault();
     // const {name, value} = event.target;
     // this.setState({ name: value })
     // console.log(name, value)
     // return value
-    
-    console.log(this.state.value);
-
-  }
+    // console.log(this.state.value);
+  // }
 
   render() {
       return (
