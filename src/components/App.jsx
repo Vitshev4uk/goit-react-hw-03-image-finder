@@ -4,7 +4,7 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
 import axios from 'axios';
-import { BallTriangle } from 'react-loader-spinner';
+// import { BallTriangle } from 'react-loader-spinner';
 
 class App extends Component {
   state = {
@@ -59,7 +59,7 @@ class App extends Component {
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.onSubmit} />
-        {this.state.isLoading &&<div className={css.Ball}><BallTriangle/></div>}
+        {/* {this.state.isLoading &&<div className={css.Ball}><BallTriangle/></div>} */}
         <ImageGallery images={this.state.images} />
         <Modal images={this.state.images} />
       </div>
