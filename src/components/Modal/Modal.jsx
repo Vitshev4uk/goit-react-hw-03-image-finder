@@ -1,15 +1,15 @@
-import { Component } from 'react';
-import css from './Modal.module.css';
+// import { Component } from 'react';
+// import css from './Modal.module.css';
 
-class Modal extends Component {
-
-
+// class Modal extends Component {
 
 
-  render() {
-    const { children, closeModal } = this.props;
 
-    return (
+
+//   render() {
+//     const { children, closeModal } = this.props;
+
+    // return (
       // <div className={css.Overlay}>
       //   <div className={css.Modal}>
       //     <img src="" alt="" />
@@ -18,15 +18,15 @@ class Modal extends Component {
 
       
       // <div className={css.Overlay} onClick={closeModal}>
-        <div className={css.Modal} >
+        // <div className={css.Modal} >
           {/* <button className={css.closeButton} onClick={closeModal}>
             &times;
           </button> */}
-          {children}
-        </div>
+          {/* {children}
+        </div> */}
       // </div>
-    );
-  }
-}
+//     );
+//   }
+// }
 
-export default Modal;
+// export default Modal;

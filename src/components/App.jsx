@@ -2,7 +2,7 @@ import { Component } from 'react';
 import css from 'styles.css/App/App.module.css';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
-import Modal from './Modal/Modal';
+// import Modal from './Modal/Modal';
 import axios from 'axios';
 import Loader from './Loader/Loader';
 
@@ -11,7 +11,6 @@ class App extends Component {
     images: [],
     page: 1,
     isLoading: false,
-    overlay: false
   };
   componentDidMount() { }
   
@@ -55,7 +54,7 @@ class App extends Component {
         <Searchbar onSubmit={this.onSubmit} />
         {this.state.isLoading &&<Loader/>}
         <ImageGallery images={this.state.images} />
-        {this.state.overlay &&<Modal images={this.state.images} />}
+        {/* <Modal images={this.state.images} /> */}
       </div>
       
     );
