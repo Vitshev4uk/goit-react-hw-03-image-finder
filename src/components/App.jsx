@@ -4,13 +4,14 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
 import axios from 'axios';
-// import { BallTriangle } from 'react-loader-spinner';
+import Loader from './Loader/Loader';
 
 class App extends Component {
   state = {
     images: [],
     page: 1,
-    isLoading: false
+    isLoading: false,
+    overlay: false
   };
   componentDidMount() { }
   
@@ -43,25 +44,18 @@ class App extends Component {
     } catch (error) {
       console.error(error);
     } finally {
-      this.setState({isLoading: false})
+      this.setState({ isLoading: false })
+      this.setState({overlay: true})
     }
   };
-
-  loadMoreImages = () => {
-    const { images } = this.state;
-    const value = images[0].tags;
-    this.onSubmit( value );
-  };
-
-
 
   render() {
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.onSubmit} />
-        {/* {this.state.isLoading &&<div className={css.Ball}><BallTriangle/></div>} */}
+        {this.state.isLoading &&<Loader/>}
         <ImageGallery images={this.state.images} />
-        <Modal images={this.state.images} />
+        {this.state.overlay &&<Modal images={this.state.images} />}
       </div>
       
     );
