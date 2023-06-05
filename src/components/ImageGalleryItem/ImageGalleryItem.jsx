@@ -8,7 +8,7 @@ class ImageGalleryItem extends Component {
       <>
         {images.map(({ id, webformatURL, largeImageURL }) => (
           <li className={css.ImageGalleryItem} key={id}>
-            <img src={webformatURL} className={css.imageGalleryItemImage} />
+            <img src={webformatURL} alt='' className={css.imageGalleryItemImage} />
           </li>
         ))}
       </>
