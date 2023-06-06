@@ -1,6 +1,6 @@
 import { Component } from "react";
 import css from './Button.module.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class Button extends Component {
 

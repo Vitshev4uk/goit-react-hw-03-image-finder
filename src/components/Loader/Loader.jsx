@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { BallTriangle } from 'react-loader-spinner';
 import css from './Loader.module.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class Loader extends Component  {
   render() {
