@@ -8,12 +8,6 @@ class ImageGalleryItem extends Component {
     selectedImage: '',
   };
 
-  // toggleModal = () => {
-  //   this.setState(state => ({
-  //     isModalOpen: !state.isModalOpen
-  //   }))
-  // }
-
   openModal = (selectedImage) => {
     this.setState({
       isModalOpen: true,
@@ -34,17 +28,22 @@ class ImageGalleryItem extends Component {
     return (
       <>
         {images.map(({ id, webformatURL, largeImageURL }) => (
-          <li className={css.ImageGalleryItem} key={id}>
+          // <li className={css.ImageGalleryItem} key={id}>
+            <li key={id}>
             <img className={css.imageGalleryItemImage} src={webformatURL} alt=''  onClick={() => { this.openModal(largeImageURL)}}/>
-            {isModalOpen && <Modal close={this.closeModal}>
-              <img src={ selectedImage } alt='' />
-              </Modal>}
           </li>
         ))}
+        {selectedImage && (
+        <Modal close={this.closeModal}>
+          <img src={selectedImage} alt='' />
+        </Modal>
+      )}
+
       </>
     );
   }
 }
+  
 
 
 
