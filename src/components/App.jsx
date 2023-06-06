@@ -34,6 +34,7 @@ class App extends Component {
         `${URL}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&per_page=${limit}&page=${page}`
       );
       const data = response.data.hits;
+      console.log(data)
       this.setState(prevState => ({
         // images: [...prevState.images, ...data],
         images: page === 1 ? data : [...prevState.images, ...data],

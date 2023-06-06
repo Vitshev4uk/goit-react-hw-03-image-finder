@@ -8,11 +8,11 @@ class ImageGalleryItem extends Component {
     selectedImage: '',
   };
 
-  toggleModal = () => {
-    this.setState(state => ({
-      isModalOpen: !state.isModalOpen
-    }))
-  }
+  // toggleModal = () => {
+  //   this.setState(state => ({
+  //     isModalOpen: !state.isModalOpen
+  //   }))
+  // }
 
   openModal = (selectedImage) => {
     this.setState({
@@ -30,12 +30,12 @@ class ImageGalleryItem extends Component {
 
   render() {
     const { images } = this.props;
-    const {  isModalOpen, selectedImage } = this.state;
+    const { isModalOpen, selectedImage } = this.state;
     return (
       <>
         {images.map(({ id, webformatURL, largeImageURL }) => (
           <li className={css.ImageGalleryItem} key={id}>
-            <img src={webformatURL} alt='' className={css.imageGalleryItemImage} onClick={() => { this.openModal(largeImageURL)}}/>
+            <img className={css.imageGalleryItemImage} src={webformatURL} alt=''  onClick={() => { this.openModal(largeImageURL)}}/>
             {isModalOpen && <Modal close={this.closeModal}>
               <img src={ selectedImage } alt='' />
               </Modal>}
