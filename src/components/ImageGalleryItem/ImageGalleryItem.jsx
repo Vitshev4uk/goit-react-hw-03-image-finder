@@ -24,7 +24,7 @@ class ImageGalleryItem extends Component {
 
   render() {
     const { images } = this.props;
-    const { isModalOpen, selectedImage } = this.state;
+    const { selectedImage } = this.state;
     return (
       <>
         {images.map(({ id, webformatURL, largeImageURL }) => (
