@@ -14,12 +14,13 @@ class Searchbar extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    if (prevState.value !== this.state.value) {
-      if (this.state.value > 5) {
-         const { onSubmit } = this.props;
-      onSubmit(this.state.value)
-      }
-      }
+    // if (prevState.value !== this.state.value) {
+    //   if (this.state.value > 5) {
+    //      const { onSubmit } = this.props;
+    //   onSubmit(this.state.value)
+    //   }
+    //   }
+    localStorage.setItem('value', this.state.value)
   }
 
   handleInputValue = event => {

@@ -5,22 +5,22 @@ import ImageGallery from './ImageGallery/ImageGallery';
 // import Modal from './Modal/Modal';
 import axios from 'axios';
 import Loader from './Loader/Loader';
+// import { prettyDOM } from '@testing-library/react';
 
 class App extends Component {
   state = {
     images: [],
     page: 1,
     isLoading: false,
+    inputValue: ''
   };
   componentDidMount() { }
   
     componentDidUpdate(_, prevState) {
     if (prevState.images !== this.state.images) {
-      console.log(this.state.images);
-      console.log(this.state.images);
-      } 
-      
-    }
+      // console.log(this.state.images);
+      };
+  };
 
   onSubmit = async (value) => {
     const key = '35632992-e10a39a36f128534b3670000b';
@@ -28,16 +28,25 @@ class App extends Component {
     const limit = 12;
     const { page } = this.state;
 
-    this.setState({isLoading: true})
+    this.setState({
+      isLoading: true
+    })
+  //     this.setState({
+  //   isLoading: true,
+  //   page: 1,
+  //   images: [],
+  // });
+
 
     try {
       const response = await axios.get(
         `${URL}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&per_page=${limit}&page=${page}`
       );
       const data = response.data.hits;
-      console.log(data)
+      console.log(data);
       this.setState(prevState => ({
         // images: [...prevState.images, ...data],
+        // images: [...data],
         images: page === 1 ? data : [...prevState.images, ...data],
         page: prevState.page + 1,
       }));
@@ -46,14 +55,14 @@ class App extends Component {
       console.error(error);
     } finally {
       this.setState({ isLoading: false })
-      this.setState({overlay: true})
+      this.setState({ overlay: true })
     }
   };
 
   render() {
     return (
       <div className={css.App}>
-        <Searchbar onSubmit={this.onSubmit} />
+        <Searchbar onSubmit={this.onSubmit} onSubmit2={ this.onSubmit2} />
         {this.state.isLoading &&<Loader/>}
         <ImageGallery images={this.state.images} />
         {/* <Modal images={this.state.images} /> */}
