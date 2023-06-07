@@ -17,6 +17,7 @@ class App extends Component {
     componentDidUpdate(_, prevState) {
     if (prevState.images !== this.state.images) {
       console.log(this.state.images);
+      console.log(this.state.images);
       } 
       
     }
