@@ -4,8 +4,6 @@ import Button from 'components/Button/Button';
 // import Modal from 'components/Modal/Modal';
 import PropTypes from 'prop-types';
 
-
-
 class Searchbar extends Component {
   state = {
     value: '',
@@ -14,13 +12,7 @@ class Searchbar extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    // if (prevState.value !== this.state.value) {
-    //   if (this.state.value > 5) {
-    //      const { onSubmit } = this.props;
-    //   onSubmit(this.state.value)
-    //   }
-    //   }
-    localStorage.setItem('value', this.state.value)
+    localStorage.setItem('value', this.state.value);
   }
 
   handleInputValue = event => {
@@ -36,41 +28,51 @@ class Searchbar extends Component {
 
   onClickBtn = () => {
     this.setState({ submitted: true });
-  }
+  };
 
   render() {
     const { onSubmit } = this.props;
 
-
     return (
       <>
-      <header className={css.Searchbar}>
-          <form className={css.SearchForm} onSubmit={(e) => { e.preventDefault(); onSubmit(this.state.value)}}>
-            <button type="submit" onClick={this.onClickBtn } className={css.SearchFormButton} >
-            <span className={css.SearchFormButtonLabel}>Search</span>
-          </button>
+        <header className={css.Searchbar}>
+          <form
+            className={css.SearchForm}
+            onSubmit={e => {
+              e.preventDefault();
+              onSubmit(this.state.value);
+            }}
+          >
+            <button
+              type="submit"
+              onClick={this.onClickBtn}
+              className={css.SearchFormButton}
+            >
+              <span className={css.SearchFormButtonLabel}>Search</span>
+            </button>
 
-          <input
+            <input
               onInput={this.handleInputValue}
-              // onClick={() => { this.setState({value: ''})}}
-            className={css.SearchFormInput}
-            type="text"
-            autoComplete="off"
-            autoFocus
+              className={css.SearchFormInput}
+              type="text"
+              autoComplete="off"
+              autoFocus
               placeholder="Search images and photos"
               value={this.state.value}
-          />
-        </form>
+            />
+          </form>
         </header>
         {/* <Modal/> */}
-        {this.state.submitted && <Button onClick={this.loadMoreImages}>{this.state.btnText}</Button>}
-        </>
+        {this.state.submitted && (
+          <Button onClick={this.loadMoreImages}>{this.state.btnText}</Button>
+        )}
+      </>
     );
   }
 }
 
 Searchbar.propTypes = {
-  onSubmit: PropTypes.func.isRequired
-}
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default Searchbar;

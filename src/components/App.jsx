@@ -2,41 +2,58 @@ import { Component } from 'react';
 import css from 'styles.css/App/App.module.css';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
-// import Modal from './Modal/Modal';
 import axios from 'axios';
 import Loader from './Loader/Loader';
-// import { prettyDOM } from '@testing-library/react';
 
 class App extends Component {
   state = {
     images: [],
     page: 1,
     isLoading: false,
-    inputValue: ''
+    inputValue: '',
   };
-  componentDidMount() { }
-  
-    componentDidUpdate(_, prevState) {
-    if (prevState.images !== this.state.images) {
-      // console.log(this.state.images);
-      };
+  componentDidMount() {}
+
+  componentDidUpdate(_, prevState) {
+    if (prevState.inputValue !== this.state.inputValue) {
+      // this.setState({page: 1})
+    }
+  }
+
+  handleSameValue = data => {
+    const locStorValue = localStorage.getItem('value');
+    if (this.state.inputValue !== locStorValue) {
+      // this.setState({ images: [...data] });
+      // this.setState({ page: 1 });
+
+      this.setState(prevState => ({
+        images: [...data],
+        // page:  1,
+      }));
+      console.log(true);
+    }
+    // } else {
+    //   // this.setState({ images: [...data] });
+    //   // this.setState({ page: 1 });
+    //   // // console.log(false)
+    //    this.setState(prevState => ({
+    //      images: [...data],
+    //      page: 1
+    //   // page: prevState.page + 1,
+    //    }));
+    //   console.log(false)
+    // }
   };
 
-  onSubmit = async (value) => {
+  onSubmit = async value => {
     const key = '35632992-e10a39a36f128534b3670000b';
     const URL = 'https://pixabay.com/api/';
     const limit = 12;
     const { page } = this.state;
 
     this.setState({
-      isLoading: true
-    })
-  //     this.setState({
-  //   isLoading: true,
-  //   page: 1,
-  //   images: [],
-  // });
-
+      isLoading: true,
+    });
 
     try {
       const response = await axios.get(
@@ -44,30 +61,33 @@ class App extends Component {
       );
       const data = response.data.hits;
       console.log(data);
+
       this.setState(prevState => ({
-        // images: [...prevState.images, ...data],
-        // images: [...data],
-        images: page === 1 ? data : [...prevState.images, ...data],
+        images: [...prevState.images, ...data],
+        // images:
+        //   this.state.page !== 1 ? [...data] : [...prevState.images, ...data],
         page: prevState.page + 1,
       }));
-      return data;
+
+      this.setState({ inputValue: value });
+      this.handleSameValue(data);
+      return value;
     } catch (error) {
       console.error(error);
     } finally {
-      this.setState({ isLoading: false })
-      this.setState({ overlay: true })
+      this.setState({ isLoading: false });
+      this.setState({ overlay: true });
     }
   };
 
   render() {
+    console.log(this.state.inputValue);
     return (
       <div className={css.App}>
-        <Searchbar onSubmit={this.onSubmit} onSubmit2={ this.onSubmit2} />
-        {this.state.isLoading &&<Loader/>}
+        <Searchbar onSubmit={this.onSubmit} />
+        {this.state.isLoading && <Loader />}
         <ImageGallery images={this.state.images} />
-        {/* <Modal images={this.state.images} /> */}
       </div>
-      
     );
   }
 }
