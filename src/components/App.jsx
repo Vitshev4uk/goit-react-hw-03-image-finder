@@ -4,6 +4,7 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import axios from 'axios';
 import Loader from './Loader/Loader';
+import Button from 'components/Button/Button';
 
 class App extends Component {
   state = {
@@ -11,82 +12,89 @@ class App extends Component {
     page: 1,
     isLoading: false,
     inputValue: '',
-  };
-  componentDidMount() {}
-
-  componentDidUpdate(_, prevState) {
-    if (prevState.inputValue !== this.state.inputValue) {
-      // this.setState({page: 1})
-    }
-  }
-
-  handleSameValue = data => {
-    const locStorValue = localStorage.getItem('value');
-    if (this.state.inputValue !== locStorValue) {
-      // this.setState({ images: [...data] });
-      // this.setState({ page: 1 });
-
-      this.setState(prevState => ({
-        images: [...data],
-        // page:  1,
-      }));
-      console.log(true);
-    }
-    // } else {
-    //   // this.setState({ images: [...data] });
-    //   // this.setState({ page: 1 });
-    //   // // console.log(false)
-    //    this.setState(prevState => ({
-    //      images: [...data],
-    //      page: 1
-    //   // page: prevState.page + 1,
-    //    }));
-    //   console.log(false)
-    // }
+    submitted: false,
   };
 
-  onSubmit = async value => {
-    const key = '35632992-e10a39a36f128534b3670000b';
-    const URL = 'https://pixabay.com/api/';
-    const limit = 12;
-    const { page } = this.state;
+  onSubmitForm = event => {
+    this.setState({ inputValue: event });
+    console.log(this.state.inputValue);
+
+    this.setState({
+      images: [],
+      page: 1,
+    });
 
     this.setState({
       isLoading: true,
     });
+  };
+
+  async loadMoreImages(page) {
+    const key = '35632992-e10a39a36f128534b3670000b';
+    const URL = 'https://pixabay.com/api/';
+    const limit = 12;
 
     try {
       const response = await axios.get(
-        `${URL}?key=${key}&q=${value}&image_type=photo&orientation=horizontal&per_page=${limit}&page=${page}`
+        `${URL}?key=${key}&q=${this.state.inputValue}&image_type=photo&orientation=horizontal&per_page=${limit}&page=${page}`
       );
       const data = response.data.hits;
       console.log(data);
-
       this.setState(prevState => ({
         images: [...prevState.images, ...data],
-        // images:
-        //   this.state.page !== 1 ? [...data] : [...prevState.images, ...data],
-        page: prevState.page + 1,
       }));
-
-      this.setState({ inputValue: value });
-      this.handleSameValue(data);
-      return value;
     } catch (error) {
-      console.error(error);
+      console.log(error);
     } finally {
-      this.setState({ isLoading: false });
-      this.setState({ overlay: true });
+      this.setState({ submitted: true });
     }
-  };
+  }
+
+  async componentDidUpdate(_, prevState) {
+    if (prevState.inputValue !== this.state.inputValue) {
+      const key = '35632992-e10a39a36f128534b3670000b';
+      const URL = 'https://pixabay.com/api/';
+      const limit = 12;
+
+      try {
+        const response = await axios.get(
+          `${URL}?key=${key}&q=${this.state.inputValue}&image_type=photo&orientation=horizontal&per_page=${limit}&page=${this.state.page}`
+        );
+        const data = response.data.hits;
+        console.log(data);
+        this.setState({
+          images: [...data],
+          isLoading: false,
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.setState({ submitted: true });
+      }
+    }
+  }
+
+  async componentWillUnmount() {}
 
   render() {
-    console.log(this.state.inputValue);
+    const { submitted, isLoading } = this.state;
     return (
       <div className={css.App}>
-        <Searchbar onSubmit={this.onSubmit} />
-        {this.state.isLoading && <Loader />}
+        <Searchbar onSubmit={this.onSubmitForm} />
+        {isLoading && <Loader />}
         <ImageGallery images={this.state.images} />
+        {submitted && (
+          <Button
+            onClick={() => {
+              this.setState(prevState => ({
+                page: prevState.page + 1,
+              }));
+              this.loadMoreImages(this.state.page + 1);
+            }}
+          >
+            Load more
+          </Button>
+        )}
       </div>
     );
   }

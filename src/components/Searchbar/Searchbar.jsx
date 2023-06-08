@@ -1,7 +1,5 @@
 import { Component } from 'react';
 import css from './Searchbar.module.css';
-import Button from 'components/Button/Button';
-// import Modal from 'components/Modal/Modal';
 import PropTypes from 'prop-types';
 
 class Searchbar extends Component {
@@ -11,19 +9,9 @@ class Searchbar extends Component {
     submitted: false,
   };
 
-  componentDidUpdate(_, prevState) {
-    localStorage.setItem('value', this.state.value);
-  }
-
   handleInputValue = event => {
     const { value } = event.target;
     this.setState({ value: value });
-  };
-
-  loadMoreImages = () => {
-    const { onSubmit } = this.props;
-    const { value } = this.state;
-    onSubmit(value);
   };
 
   onClickBtn = () => {
@@ -38,10 +26,7 @@ class Searchbar extends Component {
         <header className={css.Searchbar}>
           <form
             className={css.SearchForm}
-            onSubmit={e => {
-              e.preventDefault();
-              onSubmit(this.state.value);
-            }}
+            onSubmit={(e) => { e.preventDefault(); onSubmit(this.state.value)} }
           >
             <button
               type="submit"
@@ -62,10 +47,6 @@ class Searchbar extends Component {
             />
           </form>
         </header>
-        {/* <Modal/> */}
-        {this.state.submitted && (
-          <Button onClick={this.loadMoreImages}>{this.state.btnText}</Button>
-        )}
       </>
     );
   }
